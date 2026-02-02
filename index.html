@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Chatbot Trading</title>
+  <style>
+    body { font-family: Arial; background:#0f172a; color:white; display:flex; justify-content:center; align-items:center; height:100vh; }
+    #chat { width:350px; background:#020617; border-radius:10px; padding:10px; }
+    #messages { height:300px; overflow-y:auto; margin-bottom:10px; }
+    .user { text-align:right; color:#38bdf8; margin:5px 0; }
+    .bot { text-align:left; color:#a3e635; margin:5px 0; }
+    input { width:80%; padding:8px; }
+    button { padding:8px; cursor:pointer; }
+  </style>
+</head>
+<body>
+  <div id="chat">
+    <h3>🤖 Bot de Trading</h3>
+    <div id="messages"></div>
+    <input id="input" placeholder="Ex: Signal BTC">
+    <button onclick="send()">Envoyer</button>
+  </div>
+
+  <script>
+    function send() {
+      const input = document.getElementById("input");
+      const msg = input.value;
+      if (!msg) return;
+
+      const messages = document.getElementById("messages");
+      messages.innerHTML += `<div class="user">${msg}</div>`;
+
+      let reply = "Je n'ai pas compris. Écris: Signal BTC";
+      if (msg.toLowerCase().includes("btc")) reply = "📈 BTC: tendance HAUSSIÈRE (indicatif)";
+      if (msg.toLowerCase().includes("eur")) reply = "📉 EUR/USD: tendance BAISSIÈRE (indicatif)";
+
+      messages.innerHTML += `<div class="bot">${reply}</div>`;
+      input.value = "";
+      messages.scrollTop = messages.scrollHeight;
+    }
+  </script>
+</body>
+</html>
